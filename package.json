@@ -1,0 +1,27 @@
+{
+  "name": "wtm-node",
+  "version": "1.0.0",
+  "description": "primer proyecto con node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silvermiguel96/wtm-node-js.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "Miguelangel RC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/silvermiguel96/wtm-node-js/issues"
+  },
+  "homepage": "https://github.com/silvermiguel96/wtm-node-js#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
