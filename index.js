@@ -1,50 +1,56 @@
+const { response, request } = require("express");
 const express = require("express");
+const bodyParser = require("body-parser"); 
+const router = express.Router();
+const port = 3000;
 const app = express();
-const port = 300;
+const usuarios = require("./usuarios");
 
-const datas = [
-  {
-    id: 1,
-    nombre: "miguel",
-    apellido: "rendon",
-  },
-  {
-    id: 2,
-    nombre: "miguel",
-    apellido: "rendon",
-  },
-];
-// Get
- 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// Prueba de que funcina la ruta
 app.get("/", (require, response) => {
-  response.send(" data: { nombre: miguel, apellido: juan }");
+  response.send("Hola la ruta funciona");
 });
 
+// Obtener todos los usuarios
+app.get("/usuarios", (require, response) => {
+  response.json(usuarios);
+});
+
+// obtener un usuario por su id
 app.get("/usuarios/:id", (require, response) => {
   const usurioId = require.params.id;
-
-  const userData = datas.find((data) => {
-    console.log("data", data);
-    if(data.id == usurioId){
-        return data;
+  const userData = usuarios.find((data) => {
+    if (data.id == usurioId) {
+      return data;
     }
   });
-  if(!userData){
-    response.status(500).send('Something broke!');
+  if (!userData) {
+    response.status(500).send("No existe el usuario con ese id!");
   }
-  console.log("userData", userData);
-  console.log("usurioId", usurioId);
-//   response.send(
-//     `el usuario numero del usuario que mando por parametros es =  ${usurioId} `
-//   );
-response.json(userData)
+  response.json(userData);
 });
 
-app.post("/usuarios", function (require, response) {
-  console.log("require.body", require.body);
-  response.send("Creando Mi primer Post");
-});
+// --------- FIn get -------
+
+
+
+// ----- POST ----
+
+router.post("/usuarios", function(request, response ){
+    const usuario = request.body
+    usuarios.push(usuario)
+    response.json(usuarios)
+})
+
+
+//  ----- Fin POST ----
 
 app.listen(port, () => {
   console.log(`Imprimiento mi pueto de salida http://localhost:${port}`);
 });
+
+
+app.use(router)
