@@ -60,7 +60,7 @@ router.post("/usuarios", function (request, response) {
 
 //  ----- Fin POST ----
 
-//  ----- Fin PATCH ----
+//  ----- Inicio PATCH ----
 
 
 router.patch("/usuarios", function (request, response) {
@@ -77,6 +77,35 @@ router.patch("/usuarios", function (request, response) {
 });
 
 //  ----- Fin PATCH ----
+
+
+//  ----- Inicio PUT----
+
+router.put("/usuarios/:id", function (request, response) {
+  const usuarioId = request.params.id
+  const usuario = request.body;
+  const userData = usuarios.map((data) => {
+    if (data.id === Number(usuarioId)) {
+      data.id = usuario.id;
+      data.nombre = usuario.nombre;
+      data.apellido = usuario.apellido;
+      return data;
+    }
+    return data;
+  });
+  response.json(userData);
+});
+
+//  ----- Inicio PUT----
+
+
+//  ----- Inicio Delete----
+
+
+router.delete("/usuarios/:id", function(request, response) {
+  const usuarioId = request.params.id;
+})
+
 
 
 app.listen(port, () => {
