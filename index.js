@@ -1,6 +1,6 @@
 const { response, request } = require("express");
 const express = require("express");
-const bodyParser = require("body-parser"); 
+const bodyParser = require("body-parser");
 const router = express.Router();
 const port = 3000;
 const app = express();
@@ -35,22 +35,52 @@ app.get("/usuarios/:id", (require, response) => {
 
 // --------- FIn get -------
 
-
-
 // ----- POST ----
 
-router.post("/usuarios", function(request, response ){
-    const usuario = request.body
-    usuarios.push(usuario)
-    response.json(usuarios)
-})
+router.post("/usuarios", function (request, response) {
+  const usuario = request.body;
+  console.log("usuario", usuario);
+  const longitud = usuarios.length + 1;
 
+  const dataInfo = {
+    id: longitud,
+    nombre: usuario.name,
+    apellido: usuario.apellido,
+  };
+
+  // Destructurin
+  // const dataInfo = {
+  //   id: longitud,
+  //   ...usuario
+  // }
+
+  usuarios.push(dataInfo);
+  response.json(usuarios);
+});
 
 //  ----- Fin POST ----
+
+//  ----- Fin PATCH ----
+
+
+router.patch("/usuarios", function (request, response) {
+  const usuario = request.body;
+  const userData = usuarios.map((data) => {
+    if (data.id === usuario.id) {
+      data.nombre = usuario.nombre;
+      data.apellido = usuario.apellido;
+      return data;
+    }
+    return data;
+  });
+  response.json(userData);
+});
+
+//  ----- Fin PATCH ----
+
 
 app.listen(port, () => {
   console.log(`Imprimiento mi pueto de salida http://localhost:${port}`);
 });
 
-
-app.use(router)
+app.use(router);
