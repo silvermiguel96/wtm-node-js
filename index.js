@@ -103,7 +103,12 @@ router.put("/usuarios/:id", function (request, response) {
 
 
 router.delete("/usuarios/:id", function(request, response) {
+  
   const usuarioId = request.params.id;
+  console.log(usuarioId)
+  const nuevosUsuarios = usuarios.filter( usuario =>  usuario.id !== Number(usuarioId))
+  response.status(200).json(nuevosUsuarios)
+
 })
 
 
